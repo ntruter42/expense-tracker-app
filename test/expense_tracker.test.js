@@ -1,10 +1,10 @@
 import assert from 'assert';
-// import Database from '../config/database.js';
+import Database from '../config/database.js';
 import expense_services from '../services/expense_services.js';
 
 describe('Expense Tracker App', async function () {
-	const services = expense_services();
-	// const db = Database();
+	const db = Database();
+	const services = expense_services(db);
 
 	// beforeEach(async function () {
 	// 	// 
@@ -17,38 +17,84 @@ describe('Expense Tracker App', async function () {
 	});
 
 	// Create test for addExpense
-	// Create variable to store expected return value
-	// Call addExpense service function
-	// Create variable to store actual return variable
-	// Check if addExpense variable returns expense_id
-	// Check if addExpense variable returns nothing if no description is given
-	// Check if addExpense returns nothing if no amount is given
-	// Check if addExpense returns nothing if no category_id is given
+	describe('addExpense', function () {
+
+		// Check if addExpense variable returns expense_id
+		it('should return expense_id if expense has been added to the table', async function () {
+			// Create variable to store expected return value
+			const expected = { expense_id: 1 };
+			// Create variable to store actual return variable
+			// Call addExpense service function
+			const actual = await services.addExpense('Lunch', 30, 2); // weekday id = 3
+			// Call assert.deepEqual to compare expected results with actual results
+			assert.deepEqual(expected, actual);
+		});
+
+		// Check if addExpense variable returns nothing if no description is given
+		// Create variable to store expected return value
+		// Create variable to store actual return variable
+		// Call addExpense service function
+		// Call assert.deepEqual to compare expected results with actual results
+
+		// Check if addExpense returns nothing if no amount is given
+		// Create variable to store expected return value
+		// Create variable to store actual return variable
+		// Call addExpense service function
+		// Call assert.deepEqual to compare expected results with actual results
+
+		// Check if addExpense returns nothing if no category_id is given
+		// Create variable to store expected return value
+		// Create variable to store actual return variable
+		// Call addExpense service function
+		// Call assert.deepEqual to compare expected results with actual results
+	});
 
 	// Create test for allExpenses
-	// Create variable to store expected return value
-	// Call addExpense service function
-	// Create variable to store actual return variable
+
 	// Check if allExpenses returns list of expenses
+	// Create variable to store expected return value
+	// Create variable to store actual return variable
+	// Call allExpenses service function
+	// Call assert.deepEqual to compare expected results with actual results
+
 	// Check if allExpenses returns empty list if there are no expenses
+	// Create test for allExpenses
+	// Create variable to store expected return value
+	// Create variable to store actual return variable
+	// Call allExpenses service function
+	// Call assert.deepEqual to compare expected results with actual results
+
 
 	// Create test for expensesForCategory
-	// Create variable to store expected return value
-	// Call addExpense service function
-	// Create variable to store actual return variable
+
 	// Check if expensesForCategory returns only expense for given category
+	// Create variable to store expected return value
+	// Create variable to store actual return variable
+	// Call expensesForCategory service function
+	// Call assert.deepEqual to compare expected results with actual results
+
 	// Check if expensesForCategory returns error message if no category is given
+	// Create variable to store expected return value
+	// Create variable to store actual return variable
+	// Call expensesForCategory service function
+	// Call assert.deepEqual to compare expected results with actual results
+
 
 	// Create test for deleteExpense
-	// Create variable to store expected return value
-	// Call addExpense service function
-	// Create variable to store actual return variable
+
 	// Check if deleteExpense returns expense_id of deleted expense
+	// Create variable to store expected return value
+	// Create variable to store actual return variable
+	// Call deleteExpense service function
+	// Call assert.deepEqual to compare expected results with actual results
+
 
 	// Create test for categoryTotals
-	// Create variable to store expected return value
-	// Call addExpense service function
-	// Create variable to store actual return variable
+
 	// Check if categoryTotals returns the total for the correct category
+	// Create variable to store expected return value
+	// Create variable to store actual return variable
+	// Call categoryTotals service function
+	// Call assert.deepEqual to compare expected results with actual results
 
 });

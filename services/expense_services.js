@@ -1,12 +1,44 @@
-export default function () {
+export default function (db) {
 	async function returnTrue() {
 		return true;
 	}
 
 	// Create function addExpense that takes in description, amount and category_id
-	// Create query variable
-	// Use INSERT INTO to add description, amount and category_id into expenses table
-	// Return expense_id if successful
+	async function addExpense(description, amount, category_id) {
+		// Calculate total based on category type
+		let total;
+		switch (category_id) {
+			case 1:
+				// daily
+				total = amount * 30;
+				break;
+			case 2:
+				// weekday
+				total = amount * 5 * 4;
+				break;
+			case 3:
+				// weekend
+				total = amount * 2 * 4;
+				break;
+			case 4:
+				// weekly
+				total = amount * 4;
+				break;
+			default:
+				// monthly and once-off
+				total = amount;
+				break;
+		}
+		// Create query variable
+		// Use INSERT INTO to add description, amount and category_id into expenses table
+		const query = `
+			INSERT INTO expense.expenses (description, amount, total, category_id)
+			VALUES ($1, $2, $3, $4)
+			RETURNING expense_id;
+		`;
+		// Return expense_id if successful
+		return await db.oneOrNone(query, [description, amount, total, category_id]);
+	}
 
 	// Create function allExpenses
 	// Create query variable
@@ -29,6 +61,7 @@ export default function () {
 	// Return the list of totals with the category names
 
 	return {
-		returnTrue
+		returnTrue,
+		addExpense
 	};
 }
