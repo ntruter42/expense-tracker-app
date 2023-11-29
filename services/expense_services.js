@@ -6,6 +6,11 @@ export default function (db) {
 	// Create function addExpense that takes in description, amount and category_id
 	async function addExpense(description, amount, category_id) {
 		// Calculate total based on category type
+		if (!description || !amount || !category_id
+			|| amount <= 0 || category_id < 1 || category_id > 6) {
+			return null;
+		}
+
 		let total;
 		switch (category_id) {
 			case 1:
@@ -60,8 +65,16 @@ export default function (db) {
 	// Use SELECT to return combined totals from the each category in the expenses table
 	// Return the list of totals with the category names
 
+	async function resetExpenses() {
+		await db.none(`
+			TRUNCATE TABLE expense.expenses;
+			ALTER SEQUENCE expense.expenses_expense_id_seq RESTART WITH 1;
+		`);
+	}
+
 	return {
 		returnTrue,
-		addExpense
+		addExpense,
+		resetExpenses
 	};
 }

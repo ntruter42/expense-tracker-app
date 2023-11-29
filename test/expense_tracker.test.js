@@ -4,11 +4,12 @@ import expense_services from '../services/expense_services.js';
 
 describe('Expense Tracker App', async function () {
 	const db = Database();
-	const services = expense_services(db);
+	let services = expense_services(db);
+	this.timeout(4000);
 
-	// beforeEach(async function () {
-	// 	// 
-	// });
+	beforeEach(async function () {
+		await services.resetExpenses();
+	});
 
 	describe('Sample', function () {
 		it('should be true', async function () {
@@ -25,28 +26,48 @@ describe('Expense Tracker App', async function () {
 			const expected = { expense_id: 1 };
 			// Create variable to store actual return variable
 			// Call addExpense service function
-			const actual = await services.addExpense('Lunch', 30, 2); // weekday id = 3
+			const actual = await services.addExpense('Lunch', 30, 2); // weekday id = 2
+			// Call assert.deepEqual to compare expected results with actual results
+			assert.deepEqual(actual, expected);
+		});
+
+		// Check if addExpense variable returns nothing if no description is given
+		it('should return null if no description is given', async function () {
+			// Create variable to store expected return value
+			const expected = null;
+			// Create variable to store actual return variable
+			// Call addExpense service function
+			const actual = await services.addExpense('', 30, 2); // weekday id = 2
 			// Call assert.deepEqual to compare expected results with actual results
 			assert.deepEqual(expected, actual);
 		});
 
-		// Check if addExpense variable returns nothing if no description is given
-		// Create variable to store expected return value
-		// Create variable to store actual return variable
-		// Call addExpense service function
-		// Call assert.deepEqual to compare expected results with actual results
-
 		// Check if addExpense returns nothing if no amount is given
-		// Create variable to store expected return value
-		// Create variable to store actual return variable
-		// Call addExpense service function
-		// Call assert.deepEqual to compare expected results with actual results
+		it('should return null if negative or no amount is given', async function () {
+			// Create variable to store expected return value
+			const expected = null;
+			// Create variable to store actual return variable
+			// Call addExpense service function
+			const actual = await services.addExpense('Lunch', -10, 2); // weekday id = 2
+			// Call assert.deepEqual to compare expected results with actual results
+			assert.deepEqual(expected, actual);
+
+			// Call addExpense service function
+			const actual2 = await services.addExpense('Lunch', undefined, 2); // weekday id = 2
+			// Call assert.deepEqual to compare expected results with actual results
+			assert.deepEqual(expected, actual2);
+		});
 
 		// Check if addExpense returns nothing if no category_id is given
-		// Create variable to store expected return value
-		// Create variable to store actual return variable
-		// Call addExpense service function
-		// Call assert.deepEqual to compare expected results with actual results
+		it('should return null if invalid category_id is given', async function () {
+			// Create variable to store expected return value
+			const expected = null;
+			// Create variable to store actual return variable
+			// Call addExpense service function
+			const actual = await services.addExpense('Lunch', 30, 8); // weekday id = 2
+			// Call assert.deepEqual to compare expected results with actual results
+			assert.deepEqual(expected, actual);
+		});
 	});
 
 	// Create test for allExpenses
