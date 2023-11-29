@@ -1,0 +1,104 @@
+:root {
+	--primary-bg: #FFF;
+	--secondary-bg: #EEF;
+
+	--primary-fg: #000;
+	--secondary-fg: #888;
+
+	--error-bg: #FDD;
+	--error-fg: #C04;
+	--warning-bg: #FED;
+	--warning-fg: #A60;
+	--success-bg: #EFE;
+	--success-fg: #284;
+
+	font-size: 16px;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+	height: 100vh;
+	width: 100vw;
+}
+
+input,
+select,
+button {
+	background: var(--secondary-bg);
+	border: 1px solid var(--secondary-fg);
+	border-radius: 0.25em;
+	outline: none;
+
+	height: 2em;
+}
+
+button:hover,
+select:hover {
+	filter: brightness(0.95);
+}
+
+button:active {
+	filter: brightness(0.75);
+}
+
+input:focus {
+	filter: brightness(1.05);
+}
+
+.view {
+	height: 100%;
+	width: 100%;
+}
+
+.flex {
+	display: flex;
+}
+
+.col {
+	flex-direction: column;
+}
+
+.center {
+	justify-content: center;
+}
+
+.between {
+	justify-content: space-between;
+}
+
+.middle {
+	align-items: center;
+}
+
+.gap {
+	gap: 0.5em;
+}
+
+.pad {
+	padding: 0.5em;
+}
+
+.message {
+	border-radius: 0.5em;
+
+	height: fit-content;
+	width: fit-content;
+	max-width: 100%;
+	padding: 0.5em 1em;
+	text-align: center;
+}
+
+
+.message.error {
+	background: var(--error-bg);
+	color: var(--error-fg);
+}
+
+.message.success {
+	background: var(--success-bg);
+	color: var(--success-fg);
+}
+
+.hidden {
+	display: none;
+}

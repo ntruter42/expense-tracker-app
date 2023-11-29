@@ -1,0 +1,32 @@
+<div class="flex col middle view">
+	<h1>Expense Tracker App</h1>
+
+	<form class="flex col middle gap" action="/add" method="post">
+		<h2>Add Expense</h2>
+
+		{{#if message.text}}
+		<div class="pad {{message.type}} message">{{message.text}}</div>
+		{{/if}}
+
+		<label class="flex gap middle" for="description">
+			<span>Description</span>
+			<input type="text" name="description" id="description">
+		</label>
+
+		<label class="flex gap middle" for="amount">
+			<span>Amount</span>
+			<input type="number" name="amount" id="amount">
+		</label>
+
+		<label class="flex gap middle" for="amount">
+			<span>Category</span>
+			<select name="category" id="category">
+				{{#each categories}}
+				<option value="{{category_id}}">{{category_type}}</option>
+				{{/each}}
+			</select>
+		</label>
+
+		<button type="submit">Add Expense</button>
+	</form>
+</div>
