@@ -53,4 +53,31 @@ router.post('/add', async (req, res) => {
 	res.redirect('/');
 });
 
+router.get('/expenses', async (req, res) => {
+	const expenses = await services.allExpenses();
+	const empty = expenses.length > 0 ? false : true;
+
+	const message = {
+		text: req.flash('message')[0],
+		type: req.flash('message-type')
+	};
+
+	res.render('expenses', {
+		title: 'Expenses',
+		expenses,
+		empty,
+		message
+	});
+});
+
+router.post('/delete/:expense_id', async (req, res) => {
+	const expense_id = req.params.expense_id;
+
+	await services.deleteExpense(expense_id);
+	req.flash('message', "Expense successfully deleted");
+	req.flash('message-type', "success");
+
+	res.redirect('/expenses');
+});
+
 export default router;

@@ -46,9 +46,17 @@ export default function (db) {
 	}
 
 	// Create function allExpenses
-	// Create query variable
-	// Use SELECT to return all rows from the expenses table
-	// Return the list of rows
+	async function allExpenses() {
+		// Create query variable
+		// Use SELECT to return all rows from the expenses table
+		const query = `
+		SELECT * FROM expense.expenses
+			JOIN expense.categories ON expense.categories.category_id = expense.expenses.category_id;
+		`;
+
+		// Return the list of rows
+		return db.manyOrNone(query);
+	}
 
 	// Create function expensesForCategory that takes in a category_id
 	// Create query variable
@@ -56,9 +64,16 @@ export default function (db) {
 	// Return the list of rows
 
 	// Create function deleteExpense that takes in an expense_id
-	// Create query variable
-	// Use DELETE FROM to delete rows from the expenses table if expense_id is equal to the given expense_id
-	// Return the expense_id of the deleted row if successful
+	async function deleteExpense(expense_id) {
+		// Create query variable
+		// Use DELETE FROM to delete rows from the expenses table if expense_id is equal to the given expense_id
+		const query = `
+			DELETE FROM expense.expenses WHERE expense_id = $1;
+		`;
+
+		// Return the expense_id of the deleted row if successful
+		return await db.oneOrNone(query, [expense_id]);
+	}
 
 	// Create function categoryTotals
 	// Create query variable
@@ -75,6 +90,8 @@ export default function (db) {
 	return {
 		returnTrue,
 		addExpense,
+		allExpenses,
+		deleteExpense,
 		resetExpenses
 	};
 }

@@ -1,9 +1,12 @@
 :root {
 	--primary-bg: #FFF;
 	--secondary-bg: #EEF;
+	--tertiary-bg: #F0F;
 
 	--primary-fg: #000;
 	--secondary-fg: #888;
+	--tertiary-fg: #80F;
+
 
 	--error-bg: #FDD;
 	--error-fg: #C04;
@@ -17,6 +20,7 @@
 }
 
 body {
+	background: var(--secondary-fg);
 	height: 100vh;
 	width: 100vw;
 }
@@ -45,9 +49,36 @@ input:focus {
 	filter: brightness(1.05);
 }
 
-.view {
-	height: 100%;
+a {
+	color: var(--tertiary-fg);
+}
+
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
 	width: 100%;
+}
+
+td,
+th {
+	border: 1px solid #EEE;
+	text-align: left;
+	padding: 8px;
+}
+
+tr:nth-child(even) {
+	background-color: #EEE;
+}
+
+.view {
+	background: var(--primary-bg);
+	border-radius: 2em;
+	border: 2px solid var(--primary-fg);
+	box-shadow: 0 -8px 8px #666;
+
+	height: fit-content;
+	width: 100%;
+	max-width: 720px;
 }
 
 .flex {
@@ -74,12 +105,21 @@ input:focus {
 	gap: 0.5em;
 }
 
+.l-gap {
+	gap: 2em;
+}
+
 .pad {
 	padding: 0.5em;
 }
 
+.l-pad {
+	padding: 2em;
+}
+
 .message {
 	border-radius: 0.5em;
+	box-shadow: 0 0 0 1px;
 
 	height: fit-content;
 	width: fit-content;
@@ -92,11 +132,13 @@ input:focus {
 .message.error {
 	background: var(--error-bg);
 	color: var(--error-fg);
+	box-shadow: 0 0 0 1px var(--error-fg);
 }
 
 .message.success {
 	background: var(--success-bg);
 	color: var(--success-fg);
+	box-shadow: 0 0 0 1px var(--success-fg);
 }
 
 .hidden {

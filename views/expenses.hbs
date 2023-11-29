@@ -1,0 +1,38 @@
+<div class="flex col l-gap l-pad middle view">
+	<h1>Expense Tracker App</h1>
+
+	<form class="flex col middle gap" action="/add" method="post">
+		<h2>All Expenses</h2>
+
+		{{#if message.text}}
+		<div class="pad {{message.type}} message">{{message.text}}</div>
+		{{/if}}
+
+		{{#if empty}}
+		<div class="message">No expenses to see here</div>
+		{{else}}
+		<table>
+			<tr>
+				<th>Description</th>
+				<th>Category</th>
+				<th>Totals</th>
+				<th></th>
+			</tr>
+
+			{{#each expenses}}
+			<tr>
+				<td>{{description}}</td>
+				<td>{{category_type}}</td>
+				<td>{{total}}</td>
+				<td>
+					<button name="delete" type="submit" formaction="/delete/{{expense_id}}">Delete</button>
+				</td>
+			</tr>
+			{{/each}}
+		</table>
+		{{/if}}
+
+	</form>
+
+	<a href="/">Back to Home</a>
+</div>
