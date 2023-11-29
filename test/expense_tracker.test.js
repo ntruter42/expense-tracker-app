@@ -11,11 +11,7 @@ describe('Expense Tracker App', async function () {
 		await services.resetExpenses();
 	});
 
-	describe('Sample', function () {
-		it('should be true', async function () {
-			assert.equal(true, await services.returnTrue());
-		});
-	});
+	c
 
 	// Create test for addExpense
 	describe('addExpense', function () {
@@ -77,6 +73,22 @@ describe('Expense Tracker App', async function () {
 	// Create variable to store actual return variable
 	// Call allExpenses service function
 	// Call assert.deepEqual to compare expected results with actual results
+	describe('allExpenses', function () {
+		it('should return list of all expenses added', async function () {
+			const expected = [
+				{
+					expense_id: 1,
+					description: 'Lunch',
+					amount: '30',
+					total: '900',
+					category_id: 1,
+					category_type: 'daily'
+				}
+			];
+			const actual = await services.allExpenses();
+			assert.deepEqual(expected, actual);
+		});
+	});
 
 	// Check if allExpenses returns empty list if there are no expenses
 	// Create test for allExpenses

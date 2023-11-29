@@ -15,7 +15,7 @@
 	--success-bg: #EFE;
 	--success-fg: #284;
 
-	font-size: 16px;
+	font-size: 20px;
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -78,6 +78,7 @@ tr:nth-child(even) {
 
 	height: fit-content;
 	width: 100%;
+	min-width: 200px;
 	max-width: 720px;
 }
 
@@ -91,10 +92,6 @@ tr:nth-child(even) {
 
 .center {
 	justify-content: center;
-}
-
-.between {
-	justify-content: space-between;
 }
 
 .middle {

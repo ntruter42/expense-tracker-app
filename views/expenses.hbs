@@ -22,7 +22,7 @@
 			{{#each expenses}}
 			<tr>
 				<td>{{description}}</td>
-				<td>{{category_type}}</td>
+				<td>{{capitalize category_type}}</td>
 				<td>{{total}}</td>
 				<td>
 					<button name="delete" type="submit" formaction="/delete/{{expense_id}}">Delete</button>

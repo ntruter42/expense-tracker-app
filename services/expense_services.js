@@ -11,7 +11,7 @@ export default function (db) {
 			return null;
 		}
 
-		let total;
+		let total = 0;
 		switch (category_id) {
 			case 1:
 				// daily
@@ -29,8 +29,12 @@ export default function (db) {
 				// weekly
 				total = amount * 4;
 				break;
-			default:
-				// monthly and once-off
+			case 5:
+				// monthly
+				total = amount;
+				break;
+			case 6:
+				// once-off
 				total = amount;
 				break;
 		}
@@ -59,9 +63,18 @@ export default function (db) {
 	}
 
 	// Create function expensesForCategory that takes in a category_id
-	// Create query variable
-	// Use SELECT to return rows from the expenses table if category_id is equal to given category_id
-	// Return the list of rows
+	async function expensesForCategory(category_id) {
+		// Create query variable
+		// Use SELECT to return rows from the expenses table if category_id is equal to given category_id
+		const query = `
+		SELECT * FROM expense.expenses
+		JOIN expense.categories ON expense.categories.category_id = expense.expenses.category_id
+		WHERE expense.expenses.category_id = $1;
+		`;
+
+		// Return the list of rows
+		return db.manyOrNone(query, [category_id]);
+	}
 
 	// Create function deleteExpense that takes in an expense_id
 	async function deleteExpense(expense_id) {
@@ -76,6 +89,28 @@ export default function (db) {
 	}
 
 	// Create function categoryTotals
+	async function categoryTotals() {
+		const expense = await allExpenses();
+
+		const categories = [
+			{ category_id: 1, category_type: 'Daily', total: 0 },
+			{ category_id: 2, category_type: 'Weekday', total: 0 },
+			{ category_id: 3, category_type: 'Weekend', total: 0 },
+			{ category_id: 4, category_type: 'Weekly', total: 0 },
+			{ category_id: 5, category_type: 'Monthly', total: 0 },
+			{ category_id: 6, category_type: 'Once-Off', total: 0 }
+		];
+
+		expense.forEach(expense => {
+			categories.forEach(category => {
+				if (expense.category_id === category.category_id) {
+					category.total += expense.total;
+				}
+			});
+		});
+
+		return categories;
+	}
 	// Create query variable
 	// Use SELECT to return combined totals from the each category in the expenses table
 	// Return the list of totals with the category names
@@ -92,6 +127,7 @@ export default function (db) {
 		addExpense,
 		allExpenses,
 		deleteExpense,
+		categoryTotals,
 		resetExpenses
 	};
 }

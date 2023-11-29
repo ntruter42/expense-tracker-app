@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
 		{ category_id: 3, category_type: 'Weekend' },
 		{ category_id: 4, category_type: 'Weekly' },
 		{ category_id: 5, category_type: 'Monthly' },
-		{ category_id: 6, category_type: 'Once-Off' },
+		{ category_id: 6, category_type: 'Once-Off' }
 	];
 
 	const message = {
@@ -28,7 +28,7 @@ router.get('/', async (req, res) => {
 router.post('/add', async (req, res) => {
 	const description = req.body.description;
 	const amount = Number(req.body.amount);
-	const category = req.body.category;
+	const category = Number(req.body.category);
 
 	if (!amount) {
 		req.flash('message', "Amount cannot be empty");
@@ -55,6 +55,7 @@ router.post('/add', async (req, res) => {
 
 router.get('/expenses', async (req, res) => {
 	const expenses = await services.allExpenses();
+	console.log(expenses);
 	const empty = expenses.length > 0 ? false : true;
 
 	const message = {
