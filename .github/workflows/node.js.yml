@@ -30,4 +30,4 @@ jobs:
     - run: npm run build --if-present
     - run: npm test
     env:
-      TEST_DB_URL: ${{ secrets.TEST_DB_URL }}
+      DATABASE_URL: ${{ secrets.TEST_DB_URL }}
